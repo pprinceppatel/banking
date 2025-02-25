@@ -1,36 +1,40 @@
 "use client";
 
-import React from "react";
 import {
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { sidebarLinks } from "@/constants";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { sidebarLinks } from "@/constants";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import Footer from "./Footer";
 
 const MobileNav = ({ user }: MobileNavProps) => {
   const pathname = usePathname();
+
   return (
-    <section className="w-full max-w-[264px]">
+    <section className="w-fulll max-w-[264px]">
       <Sheet>
         <SheetTrigger>
           <Image
             src="/icons/hamburger.svg"
-            alt="hamburger"
             width={30}
             height={30}
+            alt="menu"
             className="cursor-pointer"
           />
         </SheetTrigger>
-        <SheetContent side={"left"} className="border-none bg-white">
+        <SheetContent side="left" className="border-none bg-white">
           <Link
             href="/"
-            className="flex cursor-pointer items-center gap-1 px-4"
+            className="cursor-pointer flex items-center gap-1 px-4"
           >
             <Image
               src="/icons/logo.svg"
@@ -62,8 +66,8 @@ const MobileNav = ({ user }: MobileNavProps) => {
                         <Image
                           src={item.imgURL}
                           alt={item.label}
-                          height={20}
                           width={20}
+                          height={20}
                           className={cn({
                             "brightness-[3] invert-0": isActive,
                           })}
@@ -82,7 +86,8 @@ const MobileNav = ({ user }: MobileNavProps) => {
                 USER
               </nav>
             </SheetClose>
-            FOOTER
+
+            <Footer user={user} type="mobile" />
           </div>
         </SheetContent>
       </Sheet>

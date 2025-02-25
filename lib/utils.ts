@@ -2,7 +2,7 @@
 import { type ClassValue, clsx } from "clsx";
 import qs from "query-string";
 import { twMerge } from "tailwind-merge";
-import { string, z } from "zod";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -67,9 +67,9 @@ export const formatDateTime = (dateString: Date) => {
 };
 
 export function formatAmount(amount: number): string {
-  const formatter = new Intl.NumberFormat("en-In", {
+  const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "INR",
+    currency: "USD",
     minimumFractionDigits: 2,
   });
 
@@ -197,16 +197,16 @@ export const getTransactionStatus = (date: Date) => {
 
 export const authFormSchema = (type: string) =>
   z.object({
-    //sign-up
+    // sign up
     firstName: type === "sign-in" ? z.string().optional() : z.string().min(3),
-    LastName: type === "sign-in" ? z.string().optional() : z.string().min(3),
+    lastName: type === "sign-in" ? z.string().optional() : z.string().min(3),
     address1: type === "sign-in" ? z.string().optional() : z.string().max(50),
     city: type === "sign-in" ? z.string().optional() : z.string().max(50),
     state:
       type === "sign-in" ? z.string().optional() : z.string().min(2).max(2),
-    pincode: type === "sign-in" ? z.string().optional() : z.string().min(3),
-    birthOfBirth:
-      type === "sign-in" ? z.string().optional() : z.string().min(3).max(10),
+    postalCode:
+      type === "sign-in" ? z.string().optional() : z.string().min(3).max(6),
+    dateOfBirth: type === "sign-in" ? z.string().optional() : z.string().min(3),
     ssn: type === "sign-in" ? z.string().optional() : z.string().min(3),
     // both
     email: z.string().email(),
